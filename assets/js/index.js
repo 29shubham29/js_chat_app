@@ -1,10 +1,23 @@
 var list = document.getElementById('channel-list');
 var button = document.getElementById('button');
 var channelName = document.getElementById('channel-name');
+var data = document.getElementById('data');
 
-function add(user) {
+
+function addChannel(channel) {
     var listItem = document.createElement('li');
-    listItem.innerText = user;
+    listItem.onclick = () => {
+        console.log(listItem);
+        var id = listItem.id;
+        console.log(id);
+        data.style.display = "inline-block"
+        getMessages(id);
+    }
+    listItem.innerText = channel.name;
+    Object.assign(listItem, {
+        className: "channel",
+        id: channel.id
+    })
     list.appendChild(listItem);
 }
 var x = () => {
@@ -17,9 +30,8 @@ var x = () => {
             console.log(res);
             var channel = res.resources;
             channel.forEach(item => {
-                var name = item.name;
-                if (name != "")
-                    add(name);
+                if (item.name != "")
+                    addChannel(item);
             });
         })
         // })
@@ -42,7 +54,7 @@ button.onclick = () => {
         res.json()
             .then(res => {
                 console.log(res);
-                add(res.name)
+                addChannel(res.name)
             });
     })
 
@@ -50,3 +62,23 @@ button.onclick = () => {
     channelName.value = null;
     // document.getElementById("channel-form").reset();
 };
+
+function getMessages(id) {
+    fetch('http://0.0.0.0:5000/messages/?channel_id = id')
+        .then(response => {
+            return response.json()
+        }).then(res => {
+            console.log(res)
+        })
+}
+var sendMessage = document.getElementById('send_message');
+var username = document.getElementById('uname');
+var textMessage = document.getElementById('umessage');
+sendMessage.onclick = () => {
+    var userx = username.value;
+    var message = textMessage.value;
+    console.log(userx);
+    console.log(message);
+    username.value = null;
+    textMessage.value = ""
+}

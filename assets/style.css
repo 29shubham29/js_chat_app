@@ -30,10 +30,12 @@
 
 .channels li {
     padding: 3%;
+    cursor: pointer;
 }
 
-.data {
+#data {
     height: 100vh;
     background: white;
     grid-area: data;
+    display: none;
 }
