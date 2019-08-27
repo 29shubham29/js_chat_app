@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.main-header {
+    width: 100%;
+    background: rgba(var(--sk_primary_foreground, 29, 28, 29), 1);
+    text-align: center;
+}
