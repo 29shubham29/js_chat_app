@@ -2,16 +2,24 @@ var list = document.getElementById('channel-list');
 var button = document.getElementById('button');
 var channelName = document.getElementById('channel-name');
 var data = document.getElementById('data');
-
+var sendMessage = document.getElementById('send_message');
+var username = document.getElementById('uname');
+var textMessage = document.getElementById('umessage');
+let channelId, particularChannel;
+let channelArea = document.getElementById('channel-area');
+let messageArea = document.getElementById('message-area');
 
 function addChannel(channel) {
+
     var listItem = document.createElement('li');
     listItem.onclick = () => {
-        console.log(listItem);
-        var id = listItem.id;
-        console.log(id);
-        data.style.display = "inline-block"
-        getMessages(id);
+        var channel_id = listItem.id;
+        particularChannel = listItem.innerText;
+        channelId = listItem.id;
+        data.style.display = "inline-block";
+        username.value = null;
+        textMessage.value = null;
+        getMessages(channel_id, );
     }
     listItem.innerText = channel.name;
     Object.assign(listItem, {
@@ -64,21 +72,60 @@ button.onclick = () => {
 };
 
 function getMessages(id) {
-    fetch('http://0.0.0.0:5000/messages/?channel_id = id')
+    fetch(`http://0.0.0.0:5000/messages/?channel_id=${id}`)
         .then(response => {
             return response.json()
         }).then(res => {
-            console.log(res)
+            var x = res.resources;
+            console.log(x);
+            // displayMessages(x);
+            x.forEach(item => {
+                if (item.text != "") {
+                    console.log(item.text);
+                    displayMessages(item);
+                } else {
+                    console.log("text is null")
+                }
+                // console.log(x.username);
+            })
         })
 }
-var sendMessage = document.getElementById('send_message');
-var username = document.getElementById('uname');
-var textMessage = document.getElementById('umessage');
 sendMessage.onclick = () => {
+    console.log(channelId);
     var userx = username.value;
     var message = textMessage.value;
-    console.log(userx);
-    console.log(message);
-    username.value = null;
-    textMessage.value = ""
+    var id = channelId
+    var dataMessage = {
+        username: userx,
+        text: message,
+        channel_id: id
+    }
+    fetch(`http://0.0.0.0:5000/messages/`, {
+        method: 'POST',
+        body: JSON.stringify(dataMessage),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(response => {
+        console.log(response);
+        response.json()
+            .then(res => {
+                console.log(res);
+                var x = res.resources;
+                console.log(x);
+                displayMessages(x);
+            })
+    })
+}
+
+function displayMessages(message) {
+    console.log(message[0]);
+    var resource =
+        channelArea.innerText = particularChannel;
+    let channelUsername = document.createElement('p');
+    let channelMessage = document.createElement('p');
+    channelUsername.innerText = message.username;
+    channelMessage.innerText = message.text;
+    messageArea.appendChild(channelUsername);
+    messageArea.appendChild(channelMessage);
 }
