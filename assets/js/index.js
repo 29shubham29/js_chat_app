@@ -4,7 +4,7 @@ var channelName = document.getElementById('channel-name');
 var data = document.getElementById('data');
 var sendMessage = document.getElementById('send_message');
 var username = document.getElementById('uname');
-var textMessage = document.getElementById('umessage');
+let textMessage = document.getElementById('umessage');
 let channelId, particularChannel;
 let channelArea = document.getElementById('channel-area');
 let messageArea = document.getElementById('message-area');
@@ -19,7 +19,7 @@ function addChannel(channel) {
         data.style.display = "inline-block";
         username.value = null;
         textMessage.value = null;
-        getMessages(channel_id, );
+        getMessages(channel_id);
     }
     listItem.innerText = channel.name;
     Object.assign(listItem, {
@@ -76,9 +76,11 @@ function getMessages(id) {
         .then(response => {
             return response.json()
         }).then(res => {
+
             var x = res.resources;
-            console.log(x);
-            // displayMessages(x);
+            console.log(x)
+                // displayMessages(x);
+            messageArea.innerHTML = "";
             x.forEach(item => {
                 if (item.text != "") {
                     console.log(item.text);
@@ -119,13 +121,13 @@ sendMessage.onclick = () => {
 }
 
 function displayMessages(message) {
-    console.log(message[0]);
-    var resource =
+    {
         channelArea.innerText = particularChannel;
-    let channelUsername = document.createElement('p');
-    let channelMessage = document.createElement('p');
-    channelUsername.innerText = message.username;
-    channelMessage.innerText = message.text;
-    messageArea.appendChild(channelUsername);
-    messageArea.appendChild(channelMessage);
+        let channelUsername = document.createElement('p');
+        let channelMessage = document.createElement('p');
+        channelUsername.innerHTML = message.username;
+        channelMessage.innerHTML = message.text;
+        messageArea.appendChild(channelUsername);
+        messageArea.appendChild(channelMessage);
+    }
 }
