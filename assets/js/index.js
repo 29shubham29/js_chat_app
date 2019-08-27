@@ -1,9 +1,9 @@
-var list = document.getElementById('channel-list');
-var button = document.getElementById('button');
-var channelName = document.getElementById('channel-name');
-var data = document.getElementById('data');
-var sendMessage = document.getElementById('send_message');
-var username = document.getElementById('uname');
+let list = document.getElementById('channel-list');
+let button = document.getElementById('button');
+let channelName = document.getElementById('channel-name');
+let data = document.getElementById('data');
+let sendMessage = document.getElementById('send_message');
+let username = document.getElementById('uname');
 let textMessage = document.getElementById('umessage');
 let channelId, particularChannel;
 let channelArea = document.getElementById('channel-area');
@@ -24,7 +24,7 @@ function addChannel(channel) {
     }
     listItem.innerText = channel.name;
     Object.assign(listItem, {
-        className: "list-group-item-danger",
+        className: "list-group-item",
         id: channel.id
     })
     list.appendChild(listItem);
@@ -43,7 +43,6 @@ var x = () => {
                     addChannel(item);
             });
         })
-        // })
 }
 x();
 
@@ -69,7 +68,6 @@ button.onclick = () => {
 
     .catch((err) => console.log(err));
     channelName.value = null;
-    // document.getElementById("channel-form").reset();
 };
 
 function getMessages(id) {
@@ -87,8 +85,6 @@ function getMessages(id) {
             x.forEach(item => {
                 console.log(item);
                 displayMessages(item);
-
-                // console.log(x.username);
             })
         })
 }
@@ -122,12 +118,14 @@ sendMessage.onclick = () => {
 
 function displayMessages(message) {
     {
-        channelArea.innerText = particularChannel;
-        let channelUsername = document.createElement('p');
-        let channelMessage = document.createElement('p');
-        channelUsername.innerHTML = message.username;
-        channelMessage.innerHTML = message.text;
-        messageArea.appendChild(channelUsername);
-        messageArea.appendChild(channelMessage);
+        if (message.text != "" && message.username != "") {
+            channelArea.innerText = particularChannel;
+            let channelUsername = document.createElement('p');
+            let channelMessage = document.createElement('p');
+            channelUsername.innerHTML = message.username + ':';
+            channelMessage.innerHTML = message.text;
+            messageArea.appendChild(channelUsername);
+            messageArea.appendChild(channelMessage);
+        }
     }
 }
