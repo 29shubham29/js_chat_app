@@ -15,6 +15,7 @@ function addChannel(channel) {
     listItem.onclick = () => {
         var channel_id = listItem.id;
         particularChannel = listItem.innerText;
+        // console.log(particularChannel)
         channelId = listItem.id;
         data.style.display = "inline-block";
         username.value = null;
@@ -23,7 +24,7 @@ function addChannel(channel) {
     }
     listItem.innerText = channel.name;
     Object.assign(listItem, {
-        className: "channel",
+        className: "list-group-item-info",
         id: channel.id
     })
     list.appendChild(listItem);
@@ -79,15 +80,14 @@ function getMessages(id) {
 
             var x = res.resources;
             console.log(x)
-                // displayMessages(x);
             messageArea.innerHTML = "";
+            if (x.length == 0) {
+                channelArea.innerText = particularChannel;
+            }
             x.forEach(item => {
-                if (item.text != "") {
-                    console.log(item.text);
-                    displayMessages(item);
-                } else {
-                    console.log("text is null")
-                }
+                console.log(item);
+                displayMessages(item);
+
                 // console.log(x.username);
             })
         })

@@ -19,9 +19,8 @@
 }
 
 .channels {
-    height: 100vh;
+    height: 100%;
     grid-area: channel;
-    background: grey;
 }
 
 .channels h1 {
@@ -31,6 +30,7 @@
 .channels li {
     padding: 3%;
     cursor: pointer;
+    border-bottom: 1px solid black;
 }
 
 #data {
