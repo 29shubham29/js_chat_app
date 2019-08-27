@@ -5,22 +5,43 @@
     font-family: sans-serif;
 }
 
-.main-header {
-    margin: 2% 0;
+body {
+    background: grey
+}
+
+.modal-content {
+    padding: 2%;
+}
+
+.chat-heading {
     padding: 2%;
     text-align: center;
     background: lightgrey;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-areas: "channel data";
+#send_message,
+.form-group {
+    margin: 2%;
+}
+
+.heading1 {
+    background: grey;
+}
+
+.heading2 {
+    background: yellow;
 }
 
 .channels {
-    height: 100%;
-    grid-area: channel;
+    height: auto;
+    padding-top: 2%;
+    background: #f7633b;
+}
+
+.channels ul {
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 500px;
 }
 
 .channels h1 {
@@ -30,12 +51,14 @@
 .channels li {
     padding: 3%;
     cursor: pointer;
-    border-bottom: 1px solid black;
+    list-style-type: none;
 }
 
 #data {
-    height: 100vh;
+    max-height: 700px;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: auto;
     background: white;
-    grid-area: data;
     display: none;
 }

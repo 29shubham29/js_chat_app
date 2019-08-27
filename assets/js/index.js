@@ -15,16 +15,16 @@ function addChannel(channel) {
     listItem.onclick = () => {
         var channel_id = listItem.id;
         particularChannel = listItem.innerText;
-        // console.log(particularChannel)
         channelId = listItem.id;
         data.style.display = "inline-block";
+        data.style.width = "100%";
         username.value = null;
         textMessage.value = null;
         getMessages(channel_id);
     }
     listItem.innerText = channel.name;
     Object.assign(listItem, {
-        className: "list-group-item-info",
+        className: "list-group-item-danger",
         id: channel.id
     })
     list.appendChild(listItem);
