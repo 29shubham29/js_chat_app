@@ -7,9 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/style.css">
-    <!-- <script src="https://js.pusher.com/5.0/pusher.min.js"></script> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+    <script>
+        var pusher = new Pusher('5164262e0c99192eb7c7', {
+            cluster: 'ap2',
+            forceTLS: true
+        });
+
+        var channel = pusher.subscribe('messages');
+        // pusher_client.trigger('messages', 'message-added', data)
+
+        channel.bind('message-added', function(data) {
+            appendMessageToChannel(data);
+        });
+    </script>
 </head>
 
 <body>

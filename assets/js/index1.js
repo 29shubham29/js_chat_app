@@ -59,3 +59,9 @@ var channel = pusher.subscribe('messages');
 channel.bind('message-added', function(data) {
     appendMessageToChannel(data);
 });
+// let button = document.getElementById('button');
+// let channelName = document.getElementById('channel-name');
+// let data = document.getElementById('data');
+// let username = document.getElementById('uname');
+// let textMessage = document.getElementById('umessage');
+// let channelId;
