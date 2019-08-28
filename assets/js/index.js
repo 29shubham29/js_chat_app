@@ -88,33 +88,35 @@ function getMessages(id) {
             })
         })
 }
-sendMessage.onclick = () => {
-    console.log(channelId);
-    var userx = username.value;
-    var message = textMessage.value;
-    var id = channelId
-    var dataMessage = {
-        username: userx,
-        text: message,
-        channel_id: id
-    }
-    fetch(`http://0.0.0.0:5000/messages/`, {
-        method: 'POST',
-        body: JSON.stringify(dataMessage),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(response => {
-        console.log(response);
-        response.json()
-            .then(res => {
-                console.log(res);
-                var x = res.resources;
-                console.log(x);
-                displayMessages(x);
-            })
+document.querySelector("#send_message").addEventListener("click", function(event) {
+        console.log(channelId);
+        let userx = '@' + username.value;
+        let message = textMessage.value;
+        let id = channelId
+        let dataMessage = {
+            username: userx,
+            text: message,
+            channel_id: id
+        }
+        fetch(`http://0.0.0.0:5000/messages/`, {
+            method: 'POST',
+            body: JSON.stringify(dataMessage),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            console.log(response);
+            response.json()
+                .then(res => {
+                    console.log(res);
+                    var x = res.resources;
+                    console.log(x);
+                    displayMessages(x);
+                })
+        })
+        event.preventDefault();
     })
-}
+    // sendMessage.onclick = function(event)
 
 function displayMessages(message) {
     {
