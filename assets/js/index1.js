@@ -48,3 +48,14 @@ button.onclick = () => {
     channelName.value = null;
     // document.getElementById("channel-form").reset();
 };
+var pusher = new Pusher('860f9ddfe81b579dbbbf', {
+    cluster: 'ap2',
+    forceTLS: true
+});
+
+var channel = pusher.subscribe('messages');
+// pusher_client.trigger('messages', 'message-added', data)
+
+channel.bind('message-added', function(data) {
+    appendMessageToChannel(data);
+});
