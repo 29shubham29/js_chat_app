@@ -5,8 +5,8 @@ let list = document.getElementById('channel-list');
 // let username = document.getElementById('uname');
 // let textMessage = document.getElementById('umessage');
 // let channelId;
-// let channelArea = document.getElementById('channel-area');
-// let messageArea = document.getElementById('message-area');
+let channelArea = document.getElementById('channel-area');
+let messageArea = document.getElementById('message-area');
 
 // function addChannel(channel) {
 
@@ -149,11 +149,11 @@ let list = document.getElementById('channel-list');
 // const channel = pusher.subscribe("channels");
 // console.log(channel);
 var main = document.getElementById('channel-list');
-
+var channelClickedId;
 
 function displayChannels(item) {
     // let current_id = channelname.id;
-    let list_of_channel = "<li onclick =" + `displayMessage(${item.id})>` + `${item.name}` + "</li>"
+    let list_of_channel = "<li onclick =" + `displayMessages(${item.id}) id = ${item.id}>` + `${item.name}` + "</li>"
     main.innerHTML += list_of_channel;
 }
 
@@ -166,7 +166,6 @@ function getChannels() {
             let arr = res.resources;
             arr.forEach(item => {
                 displayChannels(item);
-                // let channelitem = "<li onclick =" + `displayMessage(${item.id})>` + `${item.name}` + "</li>"
             })
         })
 }
@@ -198,13 +197,60 @@ function addChannel() {
 
 }
 
-function addChannelToMain(name) {
+function displayMessages(id) {
+    messageArea.innerText = "";
+    document.getElementById('uname').value = "";
+    document.getElementById('umessage').value = "";
+    let channelClicked = document.getElementById(`${id}`).innerText;
+    channelArea.innerText = channelClicked;
+    channelClickedId = id;
+    document.querySelector('#data').setAttribute('style', 'display:inline-block; width:100%;');
 
+    fetch(`http://0.0.0.0:5000/messages/?channel_id=${id}`)
+        .then(response => {
+            return response.json()
+        }).then(res => {
+            console.log(res);
+            let message_resources = res.resources;
+            message_resources.forEach(message => {
+                if (message.text != "" && message.username != "") {
+
+                    let returnedMessage = `<p>${message.username}</p><p>${message.text}</p>`;
+                    messageArea.innerHTML += returnedMessage;
+                }
+            })
+
+        })
 }
-const newChannelButton = () => {
-    let newChannelName = document.querySelector("#new-channel-name");
-    event.preventDefault();
-    addChannelToDB(newChannelName.value);
-    getAllChannel();
-    newChannelName.value = "";
-};
+
+function preventDefaultAction() {
+    var form = document.querySelector('#message_form');
+    form.addEventListener("click", function(event) {
+        event.preventDefault();
+    });
+}
+preventDefaultAction();
+
+function addMessage() {
+    let username_messaging = document.getElementById('uname').value;
+    let message_messaging = document.getElementById('umessage').value;
+
+    let finalText = `<p> @${username_messaging}:</p>` + `<p>${message_messaging}</p>`;
+    messageArea.innerHTML += finalText;
+
+    let data = {
+        username: `@${username_messaging}:`,
+        text: message_messaging,
+        channel_id: channelClickedId,
+    }
+    fetch('http://0.0.0.0:5000/messages/', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            return response.json()
+                .then(res => {
+
+                })
+        })
+}
