@@ -23,6 +23,10 @@ function getChannels() {
 }
 window.onload = getChannels;
 document.getElementById('channel-name').value = "";
+let button = document.querySelector('#channel-form');
+button.addEventListener("click", function(event) {
+    event.preventDefault();
+});
 
 function addChannel() {
     event.preventDefault();
@@ -83,7 +87,23 @@ function addMessage() {
         channel_id: channelClickedId,
     }
     fetch('http://0.0.0.0:5000/messages/', {
-        method: 'POST',
-        body: JSON.stringify(data)
-    })
+            method: 'POST',
+            body: JSON.stringify(data)
+        })
+        .then(result => result.json())
+        .then(res => messagePusherBroadcast(res));
 }
+
+function messagePusherBroadcast(data) {
+    console.log(data.resources);
+    fetch("http://localhost:5000/broadcast", {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(res => console.log(res));
+};
+
+function appendMessageToChannel(data) {
+    console.log(data)
+}
+Pusher.logToConsole = true;
