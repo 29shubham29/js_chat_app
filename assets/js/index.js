@@ -88,23 +88,34 @@ function addMessage() {
         channel_id: channelClickedId,
     }
     fetch('http://0.0.0.0:5000/messages/', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
-        .then(result => result.json())
-        .then(res => messagePusherBroadcast(data));
-
+        method: 'POST',
+        body: JSON.stringify(data)
+    });
+    messagePusherBroadcast(data);
 }
+var pusher = new Pusher('5164262e0c99192eb7c7', {
+    cluster: 'ap2',
+    forceTLS: true,
+    encrypted: false
+});
+
+var channel = pusher.subscribe('messages');
+
+channel.bind('message-added', function(data) {
+    broadcastByPusher(data);
+});
 
 function messagePusherBroadcast(data) {
     console.log(data);
     fetch("http://localhost:5000/broadcast", {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(data)
-    })
+    });
 };
 
 function broadcastByPusher(data) {
     console.log(data)
+    console.log(data.name)
+    console.log(data.message)
 }
 Pusher.logToConsole = true;
