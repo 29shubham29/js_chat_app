@@ -106,7 +106,7 @@ channel.bind('message-added', function(data) {
 });
 
 function messagePusherBroadcast(data) {
-    console.log(data);
+    // console.log(data);
     fetch("http://localhost:5000/broadcast", {
         method: 'POST',
         body: JSON.stringify(data)
@@ -114,8 +114,8 @@ function messagePusherBroadcast(data) {
 };
 
 function broadcastByPusher(data) {
-    console.log(data)
-    console.log(data.name)
-    console.log(data.message)
+    if (data.channel_id === channelClickedId) {
+        alert("New Message:\n" + `${data.username}` + "\n" + "messaged: " + `${data.text}`);
+    }
 }
 Pusher.logToConsole = true;
