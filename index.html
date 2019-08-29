@@ -21,7 +21,7 @@
 
         channel.bind('message-added', function(data) {
             console.log(data);
-            appendMessageToChannel(data);
+            broadcastByPusher(data);
         });
     </script>
 </head>

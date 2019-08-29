@@ -65,6 +65,23 @@ $(() => {
         channelName.value = "";
     }
 });
-// fetch('https://api.github.com/users/saurabhpanja')
-//     .then(res => res.json())
-//     .then(result => console.log(result));
+
+// const appendMessageToChannel = data => {
+//     if (currentChannelId === data.channel_id) {
+//       let displayMessage = document.querySelector("#display-msg");
+//       displayMessage.innerHTML += `<div id="scroll" class="ui cards">
+//       <div class="card">
+//         <div class="content">
+//         <div class="header">
+//         ${data.username}
+//         </div>
+//         <div class="description">
+//         ${data.text}
+//         </div>
+//       </div>
+//     </div>
+//   </div>`;
+//       let scrollToNewMsg = document.querySelector('#scroll');
+//       scrollToNewMsg.scrollIntoView();
+//     }
+//   };

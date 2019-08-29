@@ -80,7 +80,8 @@ function addMessage() {
 
     let finalText = `<p> @${username_messaging}:</p>` + `<p>${message_messaging}</p>`;
     messageArea.innerHTML += finalText;
-
+    document.getElementById('uname').value = "";
+    document.getElementById('umessage').value = "";
     let data = {
         username: `@${username_messaging}:`,
         text: message_messaging,
@@ -91,19 +92,19 @@ function addMessage() {
             body: JSON.stringify(data)
         })
         .then(result => result.json())
-        .then(res => messagePusherBroadcast(res));
+        .then(res => messagePusherBroadcast(data));
+
 }
 
 function messagePusherBroadcast(data) {
-    console.log(data.resources);
+    console.log(data);
     fetch("http://localhost:5000/broadcast", {
-            method: "POST",
-            body: JSON.stringify(data)
-        })
-        .then(res => console.log(res));
+        method: "POST",
+        body: JSON.stringify(data)
+    })
 };
 
-function appendMessageToChannel(data) {
+function broadcastByPusher(data) {
     console.log(data)
 }
 Pusher.logToConsole = true;
