@@ -7,7 +7,7 @@
 }
 
 body {
-    background: grey
+    background: grey;
 }
 
 .modal-content {
@@ -37,12 +37,17 @@ body {
 .channels ul {
     overflow: hidden;
     overflow-y: scroll;
-    scrollbar-width: none;
+    scrollbar-width: 0px !important;
     max-height: 400px;
 }
 
-.channels ul ::-webkit-scrollbar {
-    width: 0 !important
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    -webkit-border-radius: 6px;
 }
 
 .channels h1 {
