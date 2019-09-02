@@ -7,18 +7,28 @@
 }
 
 body {
-    background: grey;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./compute-ea4c57a4.png');
+    background-size: cover;
 }
 
 .modal-content {
     padding: 2%;
 }
 
+.slack {
+    position: relative;
+}
+
+.c-nav--footer__svgicon {
+    position: absolute;
+    right: 0;
+}
+
 .chat-heading {
     padding: 2%;
-    text-align: center;
-    background: lightgrey;
-    font-size: 2rem
+    background: rgba(167, 158, 219, 0.5);
+    border-radius: 10px;
+    font-size: 2rem;
 }
 
 #send_message,
@@ -29,7 +39,7 @@ body {
 .channels {
     height: auto;
     padding-top: 2%;
-    background: #3f0e40;
+    background: rgba(204, 212, 188, 0.5);
     border-radius: 5px;
     margin-top: 10px;
 }
@@ -38,7 +48,7 @@ body {
     overflow: hidden;
     overflow-y: scroll;
     scrollbar-width: 0px !important;
-    max-height: 400px;
+    max-height: 480px;
 }
 
 ::-webkit-scrollbar {
@@ -55,7 +65,7 @@ body {
     text-align: center;
     font-size: 2rem;
     overflow: hidden;
-    color: gray
+    color: cyan
 }
 
 .channels li {
@@ -67,11 +77,17 @@ body {
 }
 
 #data {
-    max-height: 700px;
+    margin-top: 10px;
+    padding: 10px;
+    max-height: 620px;
     overflow: hidden;
     overflow-y: scroll;
     height: auto;
-    background: white;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+    box-shadow: 3px grey;
+    border-radius: 5px;
     display: none;
 }
 
